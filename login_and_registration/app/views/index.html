@@ -1,0 +1,41 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="/static/css/styles.css" type="text/css">
+    <style type="text/css">
+    	li{
+    		list-style: none;
+    	}
+    	.title{
+    		display: inline-block;
+    		width: 120px;
+    		text-align: right;
+    		margin-right: 20px;
+    	}
+    	#register, #login{
+    		border: 2px solid black;
+    		background-color: blue;
+    		color: white;
+    		width: 100px;
+    		margin-left: 200px;
+    	}
+    </style>
+  </head>
+  <body>
+    The best place to start is the "WelcomeController.py" file in app/controllers.
+    <form action="/add" method="POST">
+    	<h2>Register</h2>
+    	<li><div class="title">First Name:</div><input type="text" name="first_name"></li>
+    	<li><div class="title">Last Name:</div><input type="text" name="last_name"></li>
+    	<li><div class="title">Email:</div><input type="text" name="email"></li>
+    	<li><div class="title">Password:</div><input type="password" name="password"></li>
+    	<li><div class="title">Confirm:</div><input type="password" name="password_confirm"></li>
+    	<li><input id="register" type="submit" value="Register"></li>
+    </form>
+    <form action="/login" method="POST">
+    	<h2>Login</h2>
+    	<li><div class="title">Email:</div><input type="text" name="email_login"></li>
+    	<li><div class="title">Password:</div><input type="password" name="password_login"></li>
+    	<li><input id="login" type="submit" value="Login"></li>
+    </form>
+  </body>
+</html>

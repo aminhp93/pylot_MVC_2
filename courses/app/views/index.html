@@ -1,0 +1,64 @@
+
+<html>
+  <head>
+    <link rel="stylesheet" href="/static/css/styles.css" type="text/css">
+    <style type="text/css">
+    	.title{
+    		display: inline-block;
+    		width: 200px;
+    	}
+      li{
+        list-style: none;
+      }
+      #container{
+        margin: 10px 50px;
+      }
+      input{
+        border: 3px solid black;
+      }
+      #add{
+        background-color: green;
+        margin-left: 300px;
+        width: 60px;
+      }
+      table{
+        border: 3px solid black;
+      }
+      .border_bottom{
+        border-bottom: 3px solid black;
+      }
+    </style>
+  </head>
+  <body>
+  	<div id="container">
+     <h3>Add a new course</h3>
+    <form action="/add" method="POST">
+      <li><div class="title">Name:</div><input type="text" name="name"></li>
+      <li><div class="title">Description:</div><input type="text" name="description"></li>
+      <li><input id="add" type="submit" value="Add"></li>
+    </form>
+      <table>
+        <tr>
+          <th class="border_bottom">Course Name</th>
+          <th class="border_bottom">Description</th>
+          <th class="border_bottom">Date Added</th>
+          <th class="border_bottom">Actions</th>
+        </tr>
+        {% for i in courses %}
+        <tr>
+          <td>{{ i['title']}}</td>
+          <td>{{ i['description'] }}</td>
+          <td>{{ i['created_at'] }}</td>
+          <td>
+            <form action="/show/{{ i['id'] }}">
+              <input type="submit" value="remove">
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+    </form>
+ 
+    </div>
+  </body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Result</title>
+	<style type="text/css">
+		div{
+			width: 300px;
+			display: inline-block;
+		}
+		p{
+			background-color: lightgreen;
+			border: 1px solid black;
+		}
+	</style>
+</head>
+<body>
+<!-- 	{% with messages = get_flashed_messages() %}
+		{% if messagses %}
+			<ul class="flash">
+				{% for message in messages %}
+				<li>{{message}}</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+	{% endwith %} -->
+	
+	<p>Thanks for submitting this form. You have submitted this form {{session['num']}} times.</p>
+
+	<h2>Submtited Information:</h2>
+	<li><div>Name:</div>{{name}}</li>
+	<li><div>Dojo Location:</div>{{location}}</li>
+	<li><div>Favorite Language:</div>{{language}}</li>
+	<li><div>Comment</div>{{comment}}</li>
+	<form action="/">
+		<input type="submit" value="Go Back">
+	</form>
+</body>
+</html>

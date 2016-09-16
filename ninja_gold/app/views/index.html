@@ -1,0 +1,69 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="/static/css/styles.css" type="text/css">
+    <style type="text/css">
+    	.box{
+    		display: inline-block;
+    		width: 300px;
+    	}
+    	.activities{
+
+    	}
+    	.red{
+    		color: red;
+    	}
+    	.green{
+    		color: green;
+    	}
+    	.red-bold{
+    		color: red;
+    		font-size: 20px;
+    		display: inline-block;
+    		background-color: green;
+    	}
+    </style>
+  </head>
+  <body>
+    <div>
+    	The best place to start is the "WelcomeController.py" file in app/controllers.
+    	Your Gold: <div class="red-bold">{{ session['result'] }}</div>
+    </div>
+    <div class="box">
+    	<div class="farm">Farm</div>
+    	<div class="earn">(earn 10 - 20 golds)</div>
+    	<form action="/process_money" method="POST">
+  			<input type="hidden" name="hidden" value="farm">
+    		<input type="submit" value="Find Gold!">
+    	</form>
+    </div>
+     <div class="box">
+    	<div class="farm">Cave</div>
+    	<div class="earn">(earn 5 - 10 golds)</div>
+    	<form action="process_money" method="POST">
+  			<input type="hidden" name="hidden" value="cave">
+    		<input type="submit" value="Find Gold!">
+    	</form>
+    </div>
+     <div class="box">
+    	<div class="farm">House</div>
+    	<div class="earn">(earn 2 - 5 golds)</div>
+    	<form action="process_money" method="POST">
+    		<input type="hidden" name="hidden" value="house">
+    		<input type="submit" value="Find Gold!">
+    	</form>
+    </div>
+     <div class="box">
+    	<div class="farm">Casino</div>
+    	<div class="earn">(earn/takes 0 - 50 golds)</div>
+    	<form action="process_money" method="POST">
+    		<input type="hidden" name="hidden" value="casino">
+    		<input type="submit" value="Find Gold!">
+    	</form>
+    </div>
+    <div class="activities">
+    	{% for i in activities: %}
+    	<li class="{{i[0]}}">{{i[1]}}</li>
+    	{% endfor %}
+    </div>
+  </body>
+</html>

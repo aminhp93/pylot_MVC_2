@@ -1,0 +1,24 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="/static/css/styles.css" type="text/css">
+    <style type="text/css">
+    	.box{
+    		width: 400px;
+    		margin: 30px auto;
+    		text-align: center;
+    		border: 1px solid black;
+    		padding: 15px 0 0 0;
+    	}
+    </style>
+  </head>
+  <body>
+    The best place to start is the "WelcomeController.py" file in app/controllers.
+    <div class="box">
+	    <div>Random Word (attempt # {{ attempt_number }})</div>
+	    <form action="/create" method="post">
+	    	<div>{{ content }}</div>
+	    	<input type="submit" value="Generate">
+	    </form> 
+	</div>
+  </body>
+</html>

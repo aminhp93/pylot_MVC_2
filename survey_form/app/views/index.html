@@ -1,0 +1,35 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="/static/css/styles.css" type="text/css">
+  </head>
+  <style type="text/css">
+  	div{
+  		width: 200px;
+  		display: inline-block;
+  	}
+  </style>
+  <body>
+    The best place to start is the "WelcomeController.py" file in app/controllers.
+    <form action="/create" method="POST">
+    	<li><div>Your Name:</div><input type="text" name="name"></li>
+	    <li>
+	    	<div>Dojo Location:</div>
+	    	<select name="location">
+	    		<option>Mountain View</option>
+	    		<option>LA</option>
+	    	</select>
+    	</li>
+    	<li>
+	    	<div>Favorite Language:</div>
+	    	<select name="language">
+	    		<option>Javascript</option>
+	    		<option>Ruby</option>
+	    		<option>Python</option>
+	    	</select>
+    	</li>
+    	<li><div>Comment (optional):</div>
+    	<input type="text" name="comment"></li>
+    	<li><input type="submit" value="Submit"></li>
+    </form>
+  </body>
+</html>

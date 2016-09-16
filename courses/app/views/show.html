@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Destroy {{course[0]['title']}}</title>
+	<style type="text/css">
+		.title{
+			display: inline-block;
+			width: 100px;
+		}
+		#container{
+			margin: 10px 50px;
+		}
+		li{
+			list-style: none;
+			margin: 10px 50px;
+		}
+		form{
+			display: inline-block;
+		}
+		#yes{
+			background-color: red;
+			border: 2px solid black;
+			color: white;
+		}
+		#no{
+			background-color: gray;
+			border: 2px solid black;
+			margin: 0 50px;
+		}
+	</style>
+</head>
+<body>
+	<div id="container">
+		<h2>Are you sure you wnat to delete the following course?</h2>
+		<li><div class="title">Name:</div>{{course[0]['title']}}</li>
+		<li><div class="title">Description:</div>{{course[0]['title']}}</li>
+		<form action="/">
+			<input id="no" type="submit" name="" value="No">
+		</form>
+		<form action="/delete/{{ course[0]['id'] }}" method="POST">
+			<input id="yes" type="submit" value="Yes! I want to delete this">
+		</form>
+	</div>
+</body>
+</html>

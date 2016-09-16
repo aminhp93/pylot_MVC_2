@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Testing</title>
+</head>
+<body>
+	<h2>Users#test</h2>
+	<p>Sum {{ 10 + 11 }}</p>
+	{% for num in range(0, 10) %}
+		{% if num % 2 == 1 %}
+		<p>Num {{ num }}</p>
+		{% else %}
+		<p>Even number:</p>
+		{% endif %}
+	{% endfor %}
+</body>
+</html>
