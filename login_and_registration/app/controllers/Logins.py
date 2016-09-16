@@ -46,12 +46,14 @@ class Logins(Controller):
         last_name = post['last_name']
         email = post['email']
         pw_hash = post['password']
-        user = {'first_name': first_name, 'last_name': last_name, 'email': email, 'pw_hash': pw_hash}
+        confirm = post['password_confirm']
+        user = {'first_name': first_name, 'last_name': last_name, 'email': email, 'pw_hash': pw_hash, 'confirm': confirm}
 
         current_user = self.models['Login'].add_user(user)
         print current_user
         if current_user != False:
             session['id'] = current_user['id']
+            flash("Successfully registered")
             return redirect('/success')
         return redirect('/')
 
@@ -66,6 +68,7 @@ class Logins(Controller):
         print current_user
         if current_user != False:
             session['id'] = current_user['id']
+            flash('Successfully logged in')
             return redirect('/success')
         return redirect('/')
 

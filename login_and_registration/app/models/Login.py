@@ -58,6 +58,8 @@ class Login(Model):
 
         if not user['pw_hash']:
             errors.append('Password can not be blank')
+        elif user['confirm'] != user['pw_hash']:
+            errors.append('Password is not match')
 
         if errors:
             return False
