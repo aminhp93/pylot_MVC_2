@@ -1,0 +1,45 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="/static/css/styles.css" type="text/css">
+    <style type="text/css">
+    	*{
+    		/*margin: 0;*/
+    		padding: 0;
+    	}
+    	table{
+    		border: 3px solid black;
+    		border-collapse: separate;
+			-webkit-border-horizontal-spacing: 0px;
+			-webkit-border-vertical-spacing: 0px;
+    	}
+    	th{
+    		border-bottom: 3px solid black;
+    		padding-right: 150px;
+    	}
+    	button{
+    		margin-bottom: 20px;
+    	}
+    	.border_right{
+    		border-right: 3px solid black;
+    	}
+
+    </style>
+  </head>
+  <body>
+    The best place to start is the "WelcomeController.py" file in app/controllers.
+    <h2>All Messages</h2>
+    <a href="/messages/new"><button>Create New Message</button></a>
+    <table>
+    	<tr>
+    		<th class="border_right">Content</th>
+    		<th>Poster Name</th>
+    	</tr>
+    	{% for i in messages %}
+    	<tr>
+    		<td class="border_right">{{ i['message'] }}</td>
+    		<td>{{ i['writer'] }}</td>
+    	</tr>
+    	{% endfor %}
+    </table>
+  </body>
+</html>

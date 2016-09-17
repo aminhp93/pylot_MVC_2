@@ -1,0 +1,35 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="/static/css/styles.css" type="text/css">
+    <style type="text/css">
+        .bold{
+            font-weight: bold;
+        }
+        li{
+            list-style: none;
+        }
+    </style>
+  </head>
+  <body>
+    The best place to start is the "WelcomeController.py" file in app/controllers.
+    <h2>Users</h2>
+    <a href="/users/new"><button>Create New User</button></a>
+    <table>
+    	<tr>
+    		<th>Name</th>
+    		<th>Email</th>
+    	</tr>
+    	{% for i in users %}
+    	<tr>
+    		<td>{{ i['name'] }}</td>
+    		<td>{{ i['email'] }}</td>
+    	</tr>
+    	{% endfor %}
+    </table>
+    <h2>3 Most Recent Messages</h2>
+    {% for i in messages %}
+        <li class="bold">{{ i['writer'] }}</li>
+        <li>{{ i['message'] }}</li>
+    {% endfor %}
+  </body>
+</html>
