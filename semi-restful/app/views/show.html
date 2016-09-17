@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Show</title>
+	<style type="text/css">
+		.title{
+			display: inline-block;
+			width: 100px;
+		}
+		form{
+			display: inline-block;
+		}
+		li{
+			list-style: none;
+		}
+	</style>
+</head>
+<body>
+	<h2>Product {{ product['id'] }}</h2>
+	<li><div class="title">Name:</div>{{ product['name'] }}</li>
+	<li><div class="title">Description:</div>{{ product['description'] }}</li>
+	<li><div class="title">Price:</div>{{ product['price'] }}</li>
+	<form action="/products/edit/{{ product['id'] }}">
+		<input type="submit" value="Edit">
+	</form>
+	<form action="/products">
+		<input type="submit" value="Back">
+	</form>
+</body>
+</html>

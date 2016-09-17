@@ -44,7 +44,10 @@ class Surveys(Controller):
         if 'num' not in session:
             session['num'] = 0
         session['num'] += 1
-        # flash('Thanks for submitting this form. You have submitted this form' + str(session['id']) + 'times.')
+
+        flash('Thanks for submitting this form. You have submitted this form' + str(session['id']) + 'times.')
+        # print get_flashed_messages()
+
         name = request.form['name']
         location = request.form['location']
         language = request.form['language']

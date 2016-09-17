@@ -1,0 +1,43 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="/static/css/styles.css" type="text/css">
+    <style type="text/css">
+		form{
+			display: inline-block;
+		}
+	</style>
+  </head>
+  <body>
+    The best place to start is the "WelcomeController.py" file in app/controllers.
+    <h2>Products</h2>
+    <table>
+    	<tr>
+    		<th>Name</th>
+    		<th>Description</th>
+    		<th>Price</th>
+    		<th>Actions</th>
+    	</tr>
+    	{% for i in products %}
+    	<tr>
+    		<td>{{ i['name'] }}</td>
+    		<td>{{ i['description'] }}</td>
+    		<td>{{ i['price'] }}</td>
+    		<td>
+    			<form action="/products/show/{{ i['id'] }}">
+    				<input type="submit" value="Show">
+    			</form>
+    			<form action="/products/edit/{{ i['id'] }}">
+    				<input type="submit" value="Edit">
+    			</form>
+    			<form action="/products/destroy/{{ i['id'] }}" method="POST">
+    				<input type="submit" value="Remove">
+    			</form>
+    		</td>
+    	</tr>
+    	{% endfor %}
+    </table>
+    <form action="products/new" method="GET">
+    	<input type="submit" value="Add a new product">
+    </form>
+  </body>
+</html>
