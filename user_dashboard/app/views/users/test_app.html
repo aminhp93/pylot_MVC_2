@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<title>Test App</title>
+</head>
+<body>
+	{{ user }}
+	<h2>Leave a message for {{ user['first_name'] }}</h2>
+	{{ user['id'] }}
+	<form action="/messages/add/{{ user['id'] }}" method="post">
+	  <div class="form-group">
+	    <input type="email" class="form-control" id="exampleInputEmail1" name="message">
+	  </div>
+	  <button type="submit" class="btn btn-success">Post</button>
+	</form>
+	{{ messages }}
+	{% for message in messages %}
+		<div>
+			<div>{{message}}</div>
+			{% for comment in comments %}
+				{% if comment['message_id'] == message['id'] %}
+					<div>{{ comment['comment'] }}</div>
+				{% endif %}
+			{% endfor %}
+			<form action="/comments/add/{{ message['id'] }}" method="post">
+			  <div class="form-group">
+			    <input type="email" class="form-control" id="exampleInputEmail1" name="comment" placeholder="Leave some comments here">
+			  </div>
+			  <button type="submit" class="btn btn-success">Post</button>
+			</form>
+		</div>
+	{% endfor %}
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

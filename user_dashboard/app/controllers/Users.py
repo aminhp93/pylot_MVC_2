@@ -16,6 +16,8 @@ class Users(Controller):
             Every controller has access to the load_model method.
         """
         self.load_model('User')
+        self.load_model('Message')
+        self.load_model('Comment')
         self.db = self._app.db
 
         """
@@ -52,6 +54,7 @@ class Users(Controller):
         result = self.models['User'].check_admin_or_user(user)
         print result
         if result['level'] == 'admin':
+            session['id'] = result['id']
             return redirect('/dashboard/admin')
         elif result['level'] == 'normal':
             session['id'] = result['id']
@@ -67,11 +70,16 @@ class Users(Controller):
         return self.load_view('users/new.html')
 
     def admin_show(self):
-        return self.load_view('users/admin_show.html')
+        users = self.models['User'].get_all_users()
+        return self.load_view('users/admin_show.html', users = users)
 
     def user_show(self):
         users = self.models['User'].get_all_users()
         return self.load_view('users/user_show.html', users = users)
+
+    def admin_edit(self, id):
+        user = self.models['User'].get_user_by_id(id)
+        return self.load_view('users/admin_edit.html', user = user[0])
 
     def user_edit(self):
         user = self.models['User'].get_user_by_id(session['id'])
@@ -105,6 +113,15 @@ class Users(Controller):
         
         result = self.models['User'].user_update_3(user)
         return redirect('dashboard')
+
+    def show(self, id):
+        user = self.models['User'].get_user_by_id(id)
+
+        messages = self.models['Message'].get_all_messages()
+
+        comments = self.models['Comment'].get_all_comments()
+
+        return self.load_view('users/test_app.html', user = user[0], messages = messages, comments = comments)
 
 
 

@@ -28,7 +28,13 @@ routes['GET']['/users/edit'] = 'Users#user_edit'
 routes['POST']['/users/update1'] = "Users#user_update_1"
 routes['POST']['/users/update2'] = "Users#user_update_2"
 routes['POST']['/users/update3'] = "Users#user_update_3"
+routes['GET']['/users/edit/<int:id>'] = 'Users#admin_edit'
+routes['GET']['/users/show/<int:id>'] = 'Users#show'
 
+
+routes['POST']['/messages/add/<int:id>'] = 'Messages#add'
+
+routes['POST']['/comments/add/<int:id>'] = 'Comments#add'
 
 
 """
