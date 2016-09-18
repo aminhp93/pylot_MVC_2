@@ -19,13 +19,9 @@ class Comment(Model):
     	return self.db.query_db(query, data)
 
     def get_all_comments(self):
-    	query = "SELECT * FROM comments ORDER BY created_at DESC"
+    	query = "SELECT users.first_name, comments.comment, comments.message_id FROM comments LEFT JOIN users ON comments.user_id = users.id ORDER BY comments.created_at DESC"
     	return self.db.query_db(query)
 
-    def get_comments_by_message_id(self, id):
-        query = "SELECT * FROM comments WHERE messge_id = :id"
-        data = {'id': id}
-        return self.db.query_db(query, data)
 
 
 

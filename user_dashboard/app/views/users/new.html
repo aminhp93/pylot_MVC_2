@@ -14,32 +14,33 @@
 </head>
 <body>
 	<div>
-  		<a class="btn btn-default" href="#" role="button">Test App</a>
-  		<a class="btn btn-default" href="#" role="button">Home</a>
-  		<a class="btn btn-default" href="#" role="button">Sign in</a>
+  		<a class="btn btn-default" href="/users/show/{{ session['id'] }}" role="button">Test App</a>
+	    <a class="btn btn-default" href="/dashboard/admin" role="button">Home</a>
+	    <a class="btn btn-default" href="/users/edit" role="button">Profile</a>
+	    <a class="btn btn-default" href="/logout" role="button">Logout</a>
   	</div>
-  	Add a new user <button type="button" class="btn btn-primary">Return to Dashboard</button>
+  	<h2>Add a new user</h2>
 
-	<form>
+	<form action="/users/admin_add" method="post">
 	  <div class="form-group">
 	    <label for="exampleInputEmail1">Email address</label>
-	    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+	    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email" name="email">
 	  </div>
 	  <div class="form-group">
 	    <label for="exampleInputEmail1">First Name</label>
-	    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="First Name">
+	    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="First Name" name="first_name">
 	  </div>
 	  <div class="form-group">
 	    <label for="exampleInputEmail1">Last Name</label>
-	    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Last Name">
+	    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Last Name" name="last_name">
 	  </div>
 	  <div class="form-group">
 	    <label for="exampleInputEmail1">Password</label>
-	    <input type="password" class="form-control" id="exampleInputEmail1" placeholder="Password">
+	    <input type="password" class="form-control" id="exampleInputEmail1" placeholder="Password" name="password">
 	  </div>
 	  <div class="form-group">
 	    <label for="exampleInputPassword1">Password Confirmation</label>
-	    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password Confirmation">
+	    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password Confirmation" name="password_confirmation">
 	  </div>
 	  <button type="submit" class="btn btn-success">Create</button>
 	</form>

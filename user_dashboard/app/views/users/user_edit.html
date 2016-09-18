@@ -24,10 +24,14 @@
 </head>
 <body>
 	<div>
-		<a class="btn btn-default" href="#" role="button">Test App</a>
-		<a class="btn btn-default" href="#" role="button">Home</a>
+		<a class="btn btn-default" href="/users/show/{{ session['id'] }}" role="button">Test App</a>
+		{% if user['level'] == 'admin' %}
+			<a class="btn btn-default" href="/dashboard/admin" role="button">Home</a>
+		{% else %}
+			<a class="btn btn-default" href="/dashboard" role="button">Home</a>
+		{% endif %}
 		<a class="btn btn-default" href="/users/edit" role="button">Profile</a>
-		<a class="btn btn-default" href="#" role="button">Sign in</a>
+		<a class="btn btn-default" href="/logout" role="button">Logout</a>
 	</div>
 
   	<h2>Edit Profile</h2>

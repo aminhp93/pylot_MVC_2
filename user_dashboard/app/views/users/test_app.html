@@ -10,45 +10,63 @@
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 	<title>Test App</title>
+	<style type="text/css">
+		.comment_box{
+			border: 2px solid black;
+			margin-left: 30px;
+		}
+		.message_box{
+			border: 2px solid black;
+		}
+		.title{
+			display: inline-block;
+			width: 100px;
+		}
+	</style>
 </head>
 <body>
-	{{ user }}
+	<div>
+		<a class="btn btn-default" href="/users/show/{{ session['id'] }}" role="button">Test App</a>
+		{% if user['level'] == 'admin' %}
+			<a class="btn btn-default" href="/dashboard/admin" role="button">Home</a>
+		{% else %}
+			<a class="btn btn-default" href="/dashboard" role="button">Home</a>
+		{% endif %}
+		<a class="btn btn-default" href="/users/edit" role="button">Profile</a>
+		<a class="btn btn-default" href="/logout" role="button">Logout</a>
+	</div>
+
+	{{user}}
+	<h2>{{user['first_name']}}</h2>
+	<div><div class="title">Registered at:</div>{{user['created_at']}}</div>
+	<div><div class="title">User Id:</div>{{user['id']}}</div>
+	<div><div class="title">Email:</div>{{user['email']}}</div>
+	<div><div class="title">Description:</div>{{user['description']}}</div>
+
 	<h2>Leave a message for {{ user['first_name'] }}</h2>
-	{{ user['id'] }}
 	<form action="/messages/add/{{ user['id'] }}" method="post">
 	  <div class="form-group">
 	    <input type="email" class="form-control" id="exampleInputEmail1" name="message">
 	  </div>
 	  <button type="submit" class="btn btn-success">Post</button>
 	</form>
-	{{ messages }}
 	{% for message in messages %}
-		<div>
-			<div>{{message}}</div>
-			{% for comment in comments %}
-				{% if comment['message_id'] == message['id'] %}
-					<div>{{ comment['comment'] }}</div>
-				{% endif %}
-			{% endfor %}
-			<form action="/comments/add/{{ message['id'] }}" method="post">
-			  <div class="form-group">
-			    <input type="email" class="form-control" id="exampleInputEmail1" name="comment" placeholder="Leave some comments here">
-			  </div>
-			  <button type="submit" class="btn btn-success">Post</button>
-			</form>
-		</div>
+	<div>
+		<div class="message_box">{{message}}</div>
+		{% for comment in comments %}
+			{% if comment['message_id'] == message['id'] %}
+				<dir>{{ comment['first_name'] }} wrote:</dir>
+				<div class="comment_box">{{ comment['comment'] }}</div>
+			{% endif %}
+		{% endfor %}
+		<form action="/comments/add/{{ message['id'] }}" method="post">
+		  <div class="form-group">
+		    <input type="email" class="form-control" id="exampleInputEmail1" name="comment" placeholder="Leave some comments here">
+		  </div>
+		  <button type="submit" class="btn btn-success">Post</button>
+		</form>
+	</div>
 	{% endfor %}
-
-
-
-
-
-
-
-
-
-
-
 
 </body>
 </html>

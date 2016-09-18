@@ -21,6 +21,7 @@ routes['GET']['/signin'] = 'Users#signin'
 routes['GET']['/register'] = 'Users#register'
 routes['GET']['/users/new'] = 'Users#new'
 routes['POST']['/users/add'] = 'Users#add'
+routes['POST']['/users/admin_add'] = 'Users#admin_add'
 routes['POST']['/check'] = 'Users#check'
 routes['GET']['/dashboard/admin'] = 'Users#admin_show'
 routes['GET']['/dashboard'] = 'Users#user_show'
@@ -28,13 +29,19 @@ routes['GET']['/users/edit'] = 'Users#user_edit'
 routes['POST']['/users/update1'] = "Users#user_update_1"
 routes['POST']['/users/update2'] = "Users#user_update_2"
 routes['POST']['/users/update3'] = "Users#user_update_3"
+routes['POST']['/admin/update1'] = "Users#admin_update_1"
+routes['POST']['/admin/update2'] = "Users#admin_update_2"
+routes['POST']['/admin/update3'] = "Users#admin_update_3"
 routes['GET']['/users/edit/<int:id>'] = 'Users#admin_edit'
 routes['GET']['/users/show/<int:id>'] = 'Users#show'
+routes['POST']['/users/delete/<int:id>'] = 'Users#delete'
 
 
 routes['POST']['/messages/add/<int:id>'] = 'Messages#add'
 
 routes['POST']['/comments/add/<int:id>'] = 'Comments#add'
+
+routes['GET']['/logout'] = 'Users#logout'
 
 
 """

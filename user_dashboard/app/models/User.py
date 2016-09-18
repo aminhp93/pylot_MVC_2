@@ -60,15 +60,14 @@ class User(Model):
         data = {'email': user['email']}
         test = self.db.query_db(query, data)
 
-        if test[0]:
+        if test:
             if test[0]['pw_hash'] == user['password']:
                 return test[0]
-            else:
-                return False
+        return False
 
     def user_update_1(self, user):
-        query = 'UPDATE users SET first_name = :first_name, last_name = :last_name, email = :email WHERE id = :id'
-        data = {'id': user['id'], 'email': user['email'], 'first_name': user['first_name'], 'last_name': user['last_name']}
+        query = 'UPDATE users SET first_name = :first_name, last_name = :last_name, email = :email, level = :level WHERE id = :id'
+        data = {'id': user['id'], 'email': user['email'], 'first_name': user['first_name'], 'last_name': user['last_name'], 'level': user['level']}
         return self.db.query_db(query, data)
 
     def user_update_2(self, user):
@@ -83,6 +82,11 @@ class User(Model):
 
         query = 'UPDATE users SET description = :description WHERE id = :id'
         data = {'id': user['id'], 'description': user['description']}
+        return self.db.query_db(query, data)
+
+    def delete_user(self, id):
+        query = "DELETE FROM users WHERE id = :id"
+        data = {'id': id}
         return self.db.query_db(query, data)
 
 

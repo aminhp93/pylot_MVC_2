@@ -26,7 +26,11 @@ class Users(Controller):
 
         """
    
-    def index(self):        
+    def index(self):
+        if not 'id' in session:
+            session['id'] = ""
+        print session.items()
+
         return self.load_view('users/index.html')
 
     def add(self):
@@ -43,6 +47,20 @@ class Users(Controller):
         self.models['User'].add_user(user)
         return redirect('/signin')
 
+    def admin_add(self):
+        post = request.form
+        # collect data
+        email = post['email']
+        first_name = post['first_name']
+        last_name = post['last_name']
+        password = post['password']
+        password_confirmation = post['password_confirmation']
+
+        user = {'email': email, 'first_name': first_name, 'last_name': last_name, 'password': password, 'password_confirmation': password_confirmation}
+
+        self.models['User'].add_user(user)
+        return redirect('/dashboard/admin')
+
     def register(self):
         return self.load_view('users/register.html')
 
@@ -52,15 +70,15 @@ class Users(Controller):
         password = post['password']
         user = {'email': email, 'password': password}
         result = self.models['User'].check_admin_or_user(user)
-        print result
-        if result['level'] == 'admin':
-            session['id'] = result['id']
-            return redirect('/dashboard/admin')
-        elif result['level'] == 'normal':
-            session['id'] = result['id']
-            return redirect('/dashboard')
-        else:
-            return redirect("/users/new")
+
+        if result != False:
+            if result['level'] == 'admin':
+                session['id'] = result['id']
+                return redirect('/dashboard/admin')
+            elif result['level'] == 'normal':
+                session['id'] = result['id']
+                return redirect('/dashboard')
+        return redirect("/signin")
 
     def signin(self):
 
@@ -71,6 +89,7 @@ class Users(Controller):
 
     def admin_show(self):
         users = self.models['User'].get_all_users()
+        print session.items()
         return self.load_view('users/admin_show.html', users = users)
 
     def user_show(self):
@@ -90,10 +109,12 @@ class Users(Controller):
         email = post['email']
         first_name = post['first_name']
         last_name = post['last_name']
-        user = {'id': session['id'], 'email': email, 'first_name': first_name, 'last_name': last_name}
+        level = post['level']
+        level = level.lower()
+        user = {'id': session['id'], 'email': email, 'first_name': first_name, 'last_name': last_name, 'level': level}
 
         result = self.models['User'].user_update_1(user)
-        return redirect('dashboard')
+        return redirect('/dashboard')
 
     def user_update_2(self):
         post = request.form
@@ -104,7 +125,7 @@ class Users(Controller):
         result = self.models['User'].user_update_2(user)
         if result == False:
             return redirect('users/edit')
-        return redirect('dashboard')
+        return redirect('/dashboard')
 
     def user_update_3(self):
         post = request.form
@@ -112,7 +133,38 @@ class Users(Controller):
         user = {'id': session['id'], 'description': description}
         
         result = self.models['User'].user_update_3(user)
-        return redirect('dashboard')
+        return redirect('/dashboard')
+
+    def admin_update_1(self):
+        post = request.form
+        email = post['email']
+        first_name = post['first_name']
+        last_name = post['last_name']
+        level = post['level']
+        level = level.lower()
+        user = {'id': session['id'], 'email': email, 'first_name': first_name, 'last_name': last_name, 'level': level}
+
+        result = self.models['User'].user_update_1(user)
+        return redirect('/dashboard/admin')
+
+    def admin_update_2(self):
+        post = request.form
+        password = post['password']
+        password_confirmation = post['password_confirmation']
+        user = {'id': session['id'], 'password': password, 'password_confirmation': password_confirmation}
+
+        result = self.models['User'].user_update_2(user)
+        if result == False:
+            return redirect('users/edit')
+        return redirect('/dashboard/admin')
+
+    def admin_update_3(self):
+        post = request.form
+        description = post['description']
+        user = {'id': session['id'], 'description': description}
+        
+        result = self.models['User'].user_update_3(user)
+        return redirect('/dashboard/admin')
 
     def show(self, id):
         user = self.models['User'].get_user_by_id(id)
@@ -122,6 +174,16 @@ class Users(Controller):
         comments = self.models['Comment'].get_all_comments()
 
         return self.load_view('users/test_app.html', user = user[0], messages = messages, comments = comments)
+
+    def delete(self, id):
+        self.models['User'].delete_user(id)
+        return redirect('/dashboard/admin')
+
+    def logout(self):
+        session.pop('id')
+        return redirect('/')
+
+
 
 
 
