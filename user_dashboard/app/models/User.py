@@ -8,6 +8,8 @@
     Create a model using this template.
 """
 from system.core.model import Model
+from flask import flash
+import re
 
 class User(Model):
     def __init__(self):
@@ -23,21 +25,66 @@ class User(Model):
         return self.db.query_db(query, data)
 
     def add_user(self, user):
-        query = "INSERT INTO users (email, first_name, last_name, pw_hash, created_at) VALUES (:email, :first_name, :last_name, :password, NOW())"
-        data = {'email': user['email'], 'first_name': user['first_name'], 'last_name': user['last_name'], 'password': user['password']}
-        return self.db.query_db(query, data)
+        EMAIL_REGEX = re.compile(r'^[a-za-z0-9\.\+_-]+@[a-za-z0-9\._-]+\.[a-za-z]*$')
+        errors = 0
+        # Some basic validation
+        if not user['first_name']:
+            errors += 1
+            flash('Name cannot be blank', 'first_name')
+        elif len(user['first_name']) < 2:
+            errors += 1
+            flash('Name must be at least 2 characters long', 'first_name')
+
+        if not user['first_name']:
+            errors += 1
+            flash('Name cannot be blank', 'last_name')
+        elif len(user['first_name']) < 2:
+            errors += 1
+            flash('Name must be at least 2 characters long', 'last_name')
+
+        if not user['email']:
+            errors += 1
+            flash('Email cannot be blank', 'email')
+        elif not EMAIL_REGEX.match(user['email']):
+            errors += 1
+            flash('Email format must be valid!', 'email')
+
+        if not user['password']:
+            errors += 1
+            flash('Password cannot be blank', 'password')
+        elif len(user['password']) < 8:
+            errors += 1
+            flash('Password must be at least 8 characters long', 'password')
+        elif user['password'] != user['password_confirmation']:
+            errors += 1
+            flash('Password and confirmation must match!', 'password')
+
+        # If we hit errors, return them, else return True.
+        if errors > 0:
+            return False
+        else:
+            password = user['password']
+            pw_hash = self.bcrypt.generate_password_hash(password)
+            query = "INSERT INTO users (email, first_name, last_name, pw_hash, created_at) VALUES (:email, :first_name, :last_name, :password, NOW())"
+            data = {'email': user['email'], 'first_name': user['first_name'], 'last_name': user['last_name'], 'password': pw_hash}
+            return self.db.query_db(query, data)
 
     def check_admin_or_user(self, user):
         if not user['email'] or not user['password']:
+            flash('Invalid input', 'login')
             return False
 
+        password = user['password']
         query = "SELECT * FROM users WHERE email = :email"
         data = {'email': user['email']}
         test = self.db.query_db(query, data)
 
         if test:
-            if test[0]['pw_hash'] == user['password']:
+            if self.bcrypt.check_password_hash(test[0]['pw_hash'], user['password']):
                 return test[0]
+            else:
+                flash('Password is not match', 'login')
+                return False
         return False
 
     def user_update_1(self, user):
@@ -63,23 +110,5 @@ class User(Model):
         query = "DELETE FROM users WHERE id = :id"
         data = {'id': id}
         return self.db.query_db(query, data)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

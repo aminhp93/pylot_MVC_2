@@ -49,7 +49,9 @@ class Users(Controller):
 
         user = {'email': email, 'first_name': first_name, 'last_name': last_name, 'password': password, 'password_confirmation': password_confirmation}
 
-        self.models['User'].add_user(user)
+        result = self.models['User'].add_user(user)
+        if result == False:
+            return redirect('/register')
         return redirect('/signin')
 
     def login(self):

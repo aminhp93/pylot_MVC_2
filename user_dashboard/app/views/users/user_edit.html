@@ -1,19 +1,28 @@
 {% include "/users/_head.html" %}
 	<title>User Edit</title>
 	<style type="text/css">
-		/*.form-1{
-			width: 500px;
+		.form-1{
+			width: 400px;
 			display: inline-block;
 			margin-right: 200px;
 		}
 		.form-2{
-			width: 500px;
+			width: 400px;
 			display: inline-block;
-		}*/
+		}
 	</style>
 </head>
 <body>
-	{% include "/users/_user_show.html" %}
+	<div>
+	    <a class="btn btn-default" href="/users/show/{{ session['id'] }}" role="button">Test App</a>
+	    {% if user['level'] == 'admin' %}
+	    	<a class="btn btn-default" href="/dashboard/admin" role="button">Home</a>
+	    {% elif user['level'] == 'normal' %}
+	    	<a class="btn btn-default" href="/dashboard" role="button">Home</a>
+	    {% endif %}
+	    <a class="btn btn-default" href="/users/edit" role="button">Profile</a>
+	    <a class="btn btn-default" href="/logout" role="button">Logout</a>
+	</div>
 	
   	<h2>Edit Profile</h2>
   	<form class="form-1" action="/users/update1" method="post">
