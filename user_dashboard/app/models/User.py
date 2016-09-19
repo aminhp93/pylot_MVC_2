@@ -35,10 +35,10 @@ class User(Model):
             errors += 1
             flash('Name must be at least 2 characters long', 'first_name')
 
-        if not user['first_name']:
+        if not user['last_name']:
             errors += 1
             flash('Name cannot be blank', 'last_name')
-        elif len(user['first_name']) < 2:
+        elif len(user['last_name']) < 2:
             errors += 1
             flash('Name must be at least 2 characters long', 'last_name')
 
@@ -63,6 +63,7 @@ class User(Model):
         if errors > 0:
             return False
         else:
+            flash('You successfully registerd. Please log in.', 'login_success')
             password = user['password']
             pw_hash = self.bcrypt.generate_password_hash(password)
             query = "INSERT INTO users (email, first_name, last_name, pw_hash, created_at) VALUES (:email, :first_name, :last_name, :password, NOW())"
@@ -96,8 +97,9 @@ class User(Model):
         if user['password'] != user['password_confirmation']:
             return False
 
+        pw_hash = self.bcrypt.generate_password_hash(user['password'])
         query = 'UPDATE users SET pw_hash = :password WHERE id = :id'
-        data = {'id': user['id'], 'password': user['password']}
+        data = {'id': user['id'], 'password': pw_hash}
         return self.db.query_db(query, data)
 
     def user_update_3(self, user):
