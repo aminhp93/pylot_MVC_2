@@ -2,13 +2,17 @@
 	<title>User Edit</title>
 	<style type="text/css">
 		.form-1{
-			width: 500px;
+			width: 400px;
 			display: inline-block;
 			margin-right: 200px;
 		}
 		.form-2{
-			width: 500px;
+			width: 400px;
 			display: inline-block;
+			vertical-align: top;
+		}
+		.form-3{
+			width: 1000px;
 		}
 	</style>
 </head>
@@ -31,8 +35,15 @@
 	  <div class="form-group">
 	    <label>User Level</label>
 	    <select class="form-control" name="level">
-		  <option>Normal</option>
-		  <option>Admin</option>
+
+    	{% if user['level'] == 'admin' %}
+	    	<option>Admin</option>
+		  	<option>Normal</option>
+	  	{% else %}
+		  	<option>Normal</option>
+		  	<option>Admin</option>
+	  	{% endif %}
+
 		</select>
 	  </div>
 	  <button type="submit" class="btn btn-success">Save</button>
@@ -52,7 +63,7 @@
 	</form>
 	<!-- end form 2 -->
 
-	<form action="/admin/update3/{{ user['id'] }}" method="post">
+	<form class="form-3" action="/admin/update3/{{ user['id'] }}" method="post">
 	  <div class="form-group">
 	    <label >Edit Description</label>
 	    <input type="text" class="form-control" name="description">
