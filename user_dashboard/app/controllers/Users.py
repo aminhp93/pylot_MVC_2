@@ -29,6 +29,7 @@ class Users(Controller):
     def index(self):
         if not 'id' in session:
             session['id'] = ""
+        print session.items()
         return self.load_view('users/index.html')
 
     def signin(self):
@@ -72,8 +73,12 @@ class Users(Controller):
 # ======================================================================================
     
     def admin_show(self):
+        check = self.models['User'].get_user_by_id(session['id'])
+        if check[0]['level'] == 'normal':
+            return False
+            # ask
+            # =======================================
         users = self.models['User'].get_all_users()
-        print session.items()
         return self.load_view('users/admin_show.html', users = users)
 
     def new(self):
@@ -137,6 +142,8 @@ class Users(Controller):
 # ======================================================================================
     
     def user_show(self):
+        if not 'id' in session or session['id'] == "":
+            return False
         users = self.models['User'].get_all_users()
         return self.load_view('users/user_show.html', users = users)
 
