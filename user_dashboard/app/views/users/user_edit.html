@@ -1,14 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-	<!-- Optional theme -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
-	<!-- Latest compiled and minified JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+{% include "/users/_head.html" %}
 	<title>User Edit</title>
 	<style type="text/css">
 		.form-1{
@@ -23,17 +13,8 @@
 	</style>
 </head>
 <body>
-	<div>
-		<a class="btn btn-default" href="/users/show/{{ session['id'] }}" role="button">Test App</a>
-		{% if user['level'] == 'admin' %}
-			<a class="btn btn-default" href="/dashboard/admin" role="button">Home</a>
-		{% else %}
-			<a class="btn btn-default" href="/dashboard" role="button">Home</a>
-		{% endif %}
-		<a class="btn btn-default" href="/users/edit" role="button">Profile</a>
-		<a class="btn btn-default" href="/logout" role="button">Logout</a>
-	</div>
-
+	{% include "/users/_user_show.html" %}
+	
   	<h2>Edit Profile</h2>
   	<form class="form-1" action="/users/update1" method="post">
 	  <div class="form-group">
@@ -73,7 +54,5 @@
 	  </div>
 	  <button type="submit" class="btn btn-success">Save</button>
 	</form>
-
-
 </body>
 </html>

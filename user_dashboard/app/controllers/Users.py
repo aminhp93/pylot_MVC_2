@@ -37,6 +37,36 @@ class Users(Controller):
     def register(self):
         return self.load_view('users/register.html')
 
+    def add(self):
+        post = request.form
+        # collect data
+        email = post['email']
+        first_name = post['first_name']
+        last_name = post['last_name']
+        password = post['password']
+        password_confirmation = post['password_confirmation']
+
+        user = {'email': email, 'first_name': first_name, 'last_name': last_name, 'password': password, 'password_confirmation': password_confirmation}
+
+        self.models['User'].add_user(user)
+        return redirect('/signin')
+
+    def login(self):
+        post = request.form
+        email = post['email']
+        password = post['password']
+        user = {'email': email, 'password': password}
+        result = self.models['User'].check_admin_or_user(user)
+
+        if result != False:
+            if result['level'] == 'admin':
+                session['id'] = result['id']
+                return redirect('/dashboard/admin')
+            elif result['level'] == 'normal':
+                session['id'] = result['id']
+                return redirect('/dashboard')
+        return redirect("/signin")
+
 # ======================================================================================
 #         # Admin 
 # ======================================================================================
@@ -48,6 +78,20 @@ class Users(Controller):
 
     def new(self):
         return self.load_view('users/new.html')
+
+    def admin_add(self):
+        post = request.form
+        # collect data
+        email = post['email']
+        first_name = post['first_name']
+        last_name = post['last_name']
+        password = post['password']
+        password_confirmation = post['password_confirmation']
+
+        user = {'email': email, 'first_name': first_name, 'last_name': last_name, 'password': password, 'password_confirmation': password_confirmation}
+
+        self.models['User'].add_user(user)
+        return redirect('/dashboard/admin')
 
     def admin_edit(self, id):
         user = self.models['User'].get_user_by_id(id)
@@ -87,50 +131,6 @@ class Users(Controller):
     def delete(self, id):
         self.models['User'].delete_user(id)
         return redirect('/dashboard/admin')
-
-    def add(self):
-        post = request.form
-        # collect data
-        email = post['email']
-        first_name = post['first_name']
-        last_name = post['last_name']
-        password = post['password']
-        password_confirmation = post['password_confirmation']
-
-        user = {'email': email, 'first_name': first_name, 'last_name': last_name, 'password': password, 'password_confirmation': password_confirmation}
-
-        self.models['User'].add_user(user)
-        return redirect('/signin')
-
-    def admin_add(self):
-        post = request.form
-        # collect data
-        email = post['email']
-        first_name = post['first_name']
-        last_name = post['last_name']
-        password = post['password']
-        password_confirmation = post['password_confirmation']
-
-        user = {'email': email, 'first_name': first_name, 'last_name': last_name, 'password': password, 'password_confirmation': password_confirmation}
-
-        self.models['User'].add_user(user)
-        return redirect('/dashboard/admin')
-
-    def check(self):
-        post = request.form
-        email = post['email']
-        password = post['password']
-        user = {'email': email, 'password': password}
-        result = self.models['User'].check_admin_or_user(user)
-
-        if result != False:
-            if result['level'] == 'admin':
-                session['id'] = result['id']
-                return redirect('/dashboard/admin')
-            elif result['level'] == 'normal':
-                session['id'] = result['id']
-                return redirect('/dashboard')
-        return redirect("/signin")
 
 # ======================================================================================
 #         # USER 

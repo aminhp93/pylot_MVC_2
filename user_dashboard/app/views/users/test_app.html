@@ -1,14 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-	<!-- Optional theme -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
-	<!-- Latest compiled and minified JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+{% include "/users/_head.html"%}
 	<title>Test App</title>
 	<style type="text/css">
 		.comment_box{
@@ -25,18 +15,14 @@
 	</style>
 </head>
 <body>
-	<div>
-		<a class="btn btn-default" href="/users/show/{{ session['id'] }}" role="button">Test App</a>
-		{% if user['level'] == 'admin' %}
-			<a class="btn btn-default" href="/dashboard/admin" role="button">Home</a>
-		{% else %}
-			<a class="btn btn-default" href="/dashboard" role="button">Home</a>
-		{% endif %}
-		<a class="btn btn-default" href="/users/edit" role="button">Profile</a>
-		<a class="btn btn-default" href="/logout" role="button">Logout</a>
-	</div>
+	{% if user['level'] == 'admin' %}
+		{% include "/users/_admin_show.html" %}
+	{% else %}
+		{% include "/users/_user_show.html" %}
+	{% endif %}
 
 	{{user}}
+	
 	<h2>{{user['first_name']}}</h2>
 	<div><div class="title">Registered at:</div>{{user['created_at']}}</div>
 	<div><div class="title">User Id:</div>{{user['id']}}</div>
@@ -67,6 +53,5 @@
 		</form>
 	</div>
 	{% endfor %}
-
 </body>
 </html>

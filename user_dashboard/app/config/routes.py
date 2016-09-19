@@ -36,7 +36,7 @@ routes['POST']['/users/update1'] = "Users#user_update_1"
 routes['POST']['/users/update2'] = "Users#user_update_2"
 routes['POST']['/users/update3'] = "Users#user_update_3"
 
-routes['POST']['/check'] = 'Users#check'
+routes['POST']['/login'] = 'Users#login'
 
 routes['GET']['/users/show/<int:id>'] = 'Users#show'
 
