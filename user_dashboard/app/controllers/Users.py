@@ -29,6 +29,8 @@ class Users(Controller):
     def index(self):
         if not 'id' in session:
             session['id'] = ""
+        if not 'level' in session:
+            session['level'] = ""
         print session.items()
         return self.load_view('users/index.html')
 
@@ -63,10 +65,12 @@ class Users(Controller):
 
         if result != False:
             if result['level'] == 'admin':
+                session['level'] = 'admin'
                 session['id'] = result['id']
                 return redirect('/dashboard/admin')
             elif result['level'] == 'normal':
                 session['id'] = result['id']
+                session['level'] = 'normal'
                 return redirect('/dashboard')
         return redirect("/signin")
 
@@ -75,11 +79,8 @@ class Users(Controller):
 # ======================================================================================
     
     def admin_show(self):
-        check = self.models['User'].get_user_by_id(session['id'])
-        if check[0]['level'] == 'normal':
-            return False
-            # ask
-            # =======================================
+        if not 'level' in session or session['level'] != "admin":
+            return redirect('/')
         users = self.models['User'].get_all_users()
         return self.load_view('users/admin_show.html', users = users)
 
@@ -101,6 +102,8 @@ class Users(Controller):
         return redirect('/dashboard/admin')
 
     def admin_edit(self, id):
+        if not 'level' in session or session['level'] != "admin":
+            return redirect('/')
         user = self.models['User'].get_user_by_id(id)
         return self.load_view('users/admin_edit.html', user = user[0])
 
@@ -145,11 +148,13 @@ class Users(Controller):
     
     def user_show(self):
         if not 'id' in session or session['id'] == "":
-            return False
+            return redirect('/')
         users = self.models['User'].get_all_users()
         return self.load_view('users/user_show.html', users = users)
 
     def user_edit(self):
+        if not 'id' in session or session['id'] == "":
+            return redirect('/')
         user = self.models['User'].get_user_by_id(session['id'])
         return self.load_view('users/user_edit.html', user = user[0])
 
@@ -199,6 +204,7 @@ class Users(Controller):
 
     def logout(self):
         session.pop('id')
+        session.pop('level')
         return redirect('/')
 
 
