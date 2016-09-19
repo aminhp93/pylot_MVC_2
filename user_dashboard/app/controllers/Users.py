@@ -135,33 +135,34 @@ class Users(Controller):
         result = self.models['User'].user_update_3(user)
         return redirect('/dashboard')
 
-    def admin_update_1(self):
+    def admin_update_1(self, id):
         post = request.form
         email = post['email']
         first_name = post['first_name']
         last_name = post['last_name']
         level = post['level']
         level = level.lower()
-        user = {'id': session['id'], 'email': email, 'first_name': first_name, 'last_name': last_name, 'level': level}
+        user = {'id': id, 'email': email, 'first_name': first_name, 'last_name': last_name, 'level': level}
 
         result = self.models['User'].user_update_1(user)
+        print result
         return redirect('/dashboard/admin')
 
-    def admin_update_2(self):
+    def admin_update_2(self, id):
         post = request.form
         password = post['password']
         password_confirmation = post['password_confirmation']
-        user = {'id': session['id'], 'password': password, 'password_confirmation': password_confirmation}
+        user = {'id': id, 'password': password, 'password_confirmation': password_confirmation}
 
         result = self.models['User'].user_update_2(user)
         if result == False:
             return redirect('users/edit')
         return redirect('/dashboard/admin')
 
-    def admin_update_3(self):
+    def admin_update_3(self, id):
         post = request.form
         description = post['description']
-        user = {'id': session['id'], 'description': description}
+        user = {'id': id, 'description': description}
         
         result = self.models['User'].user_update_3(user)
         return redirect('/dashboard/admin')

@@ -18,24 +18,27 @@ from system.core.router import routes
 """
 routes['default_controller'] = 'Users'
 routes['GET']['/signin'] = 'Users#signin'
-routes['GET']['/register'] = 'Users#register'
-routes['GET']['/users/new'] = 'Users#new'
-routes['POST']['/users/add'] = 'Users#add'
-routes['POST']['/users/admin_add'] = 'Users#admin_add'
-routes['POST']['/check'] = 'Users#check'
+
 routes['GET']['/dashboard/admin'] = 'Users#admin_show'
+routes['POST']['/users/admin_add'] = 'Users#admin_add'
+routes['GET']['/users/new'] = 'Users#new'
+routes['GET']['/users/edit/<int:id>'] = 'Users#admin_edit'
+routes['POST']['/admin/update1/<int:id>'] = "Users#admin_update_1"
+routes['POST']['/admin/update2/<int:id>'] = "Users#admin_update_2"
+routes['POST']['/admin/update3/<int:id>'] = "Users#admin_update_3"
+routes['POST']['/users/delete/<int:id>'] = 'Users#delete'
+
+routes['GET']['/register'] = 'Users#register'
+routes['POST']['/users/add'] = 'Users#add'
 routes['GET']['/dashboard'] = 'Users#user_show'
 routes['GET']['/users/edit'] = 'Users#user_edit'
 routes['POST']['/users/update1'] = "Users#user_update_1"
 routes['POST']['/users/update2'] = "Users#user_update_2"
 routes['POST']['/users/update3'] = "Users#user_update_3"
-routes['POST']['/admin/update1'] = "Users#admin_update_1"
-routes['POST']['/admin/update2'] = "Users#admin_update_2"
-routes['POST']['/admin/update3'] = "Users#admin_update_3"
-routes['GET']['/users/edit/<int:id>'] = 'Users#admin_edit'
-routes['GET']['/users/show/<int:id>'] = 'Users#show'
-routes['POST']['/users/delete/<int:id>'] = 'Users#delete'
 
+routes['POST']['/check'] = 'Users#check'
+
+routes['GET']['/users/show/<int:id>'] = 'Users#show'
 
 routes['POST']['/messages/add/<int:id>'] = 'Messages#add'
 

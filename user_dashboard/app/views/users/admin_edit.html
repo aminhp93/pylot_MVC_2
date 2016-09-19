@@ -31,7 +31,7 @@
 	</div>
 
   	<h2>Edit Profile</h2>
-  	<form class="form-1" action="/admin/update1" method="post">
+  	<form class="form-1" action="/admin/update1/{{ user['id'] }}" method="post">
 	  <div class="form-group">
 	    <label >Email address</label>
 	    <input type="email" class="form-control" placeholder="Email" name="email" value="{{ user['email'] }}">
@@ -50,14 +50,12 @@
 		  <option>Normal</option>
 		  <option>Admin</option>
 		</select>
-	    
 	  </div>
-
 	  <button type="submit" class="btn btn-success">Save</button>
 	</form>
 	<!-- end form 1 -->
 
-	<form class="form-2" action="/admin/update2" method="post">
+	<form class="form-2" action="/admin/update2/{{ user['id'] }}" method="post">
 	  <div class="form-group">
 	    <label >Password</label>
 	    <input type="password" class="form-control" placeholder="Password" name="password">
@@ -70,7 +68,7 @@
 	</form>
 	<!-- end form 2 -->
 
-	<form action="/admin/update3" method="post">
+	<form action="/admin/update3/{{ user['id'] }}" method="post">
 	  <div class="form-group">
 	    <label >Edit Description</label>
 	    <input type="text" class="form-control" name="description">
