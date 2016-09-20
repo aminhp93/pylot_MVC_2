@@ -40,14 +40,15 @@ class Review(Model):
 
     """
 
-    def insert_reviews(self, review):
+    def insert_review(self, review):
         if not review['review']:
             return False
 
-        query = 'INSERT Into reviews(review, user_id, book_id, created_at) VALUES (:review, :user_id, :book_id, NOW())'
-        data = {'review': review['review'], 'user_id': review['user_id'], 'book_id': review['book_id']}
+        query = 'INSERT Into reviews(rating, review, user_id, book_id, created_at) VALUES (:rating, :review, :user_id, :book_id, NOW())'
+        data = {'rating': review['rating'], 'review': review['review'], 'user_id': review['user_id'], 'book_id': review['book_id']}
         review_id = self.db.query_db(query, data)
         return review_id
+
 
 
 

@@ -13,15 +13,15 @@
 	<div class="row">
 	  <h3 class="col-xs-4 col-md-8">Welcome {{ user['name'] }}</h3>
 	  <div class="col-xs-4 col-md-2 top"><a href="/books/add">Add Book and Review</a></div>
-	  <div class="col-xs-4 col-md-2 top"><a href="">Logout</a></div>
+	  <div class="col-xs-4 col-md-2 top"><a href="/logout">Logout</a></div>
 	</div>
 	<div class="row">
 		<div class="col-xs-6">
 			<h3>Recent Book Reviews:</h3>
 			{% for i in books %}
-			<ul>
+			<ul>	
 				<h3>{{ i['title'] }}</h3>
-				<li><a href="/books/add">{{ i['name'] }}</a> say: {{ i['review'] }}</li>
+				<li><a href="/users/{{ i['user_id'] }}">{{ i['name'] }}</a> say: {{ i['review'] }}</li>
 				<li>Rating: {{ i['rating'] }}</li>
 				<li>Posted on: {{ i['created_at'] }}</li>
 			</ul>
@@ -35,7 +35,6 @@
 			</ul>
 			{% endfor %}
 		</div>
-	</div>
-		
+	</div>	
 	
 {% include '_end.html' %}

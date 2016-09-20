@@ -17,6 +17,7 @@ class Users(Controller):
         """
         self.load_model('User')
         self.load_model('Book')
+        self.load_model('Review')
         self.db = self._app.db
 
         """
@@ -49,8 +50,11 @@ class Users(Controller):
         password = post['password']
         password_cf = post['password_confirmation']
 
-        user = {'name': name, 'alias': alias, 'email': email, 'password': password, 'password_cf': password_cf}
+        user = {'name': name, 'alias': alias, 'email': email, 'password': password, 'password_confirmation': password_cf}
         result = self.models['User'].add_user(user)
+        if result == False:
+            return redirect('/')
+
         session['id'] = result
         return redirect('/books')
 
@@ -63,18 +67,34 @@ class Users(Controller):
         result = self.models['User'].login(user)
         if result == False:
             return redirect('/')
+        session['id'] = result
         return redirect('/books')
 
     def show_books(self):
-        all_books = self.models['Book'].get_all_books()
         user = self.models['User'].get_user_by_id(session['id'])
+        all_books = self.models['Book'].get_all_books()        
         books = self.models['User'].get_book_by_user_id(session['id'])
         return self.load_view('book_show.html', books = books, user = user[0], all_books = all_books)
 
-    def show_user(self, id):
-        books = self.models['User'].get_book_by_user_id(id)
-        return self.load_view('user_show.html', books = books[0])
+    def insert_review(self, id):
+        print 'amin'
+        post = request.form
+        review = post['review']
+        rating = post['rating']
 
+        book = {'review': review, 'rating': rating, 'user_id': session['id'], 'book_id': id}
+        self.models['Review'].insert_review(book)
+        return redirect('/books/' + str(id))
+
+
+    def show_user(self, id):
+        books = self.models['User'].get_review_by_user_id(id)
+        length = len(books)
+        return self.load_view('user_show.html', books = books, length = length)
+
+    def logout(self):
+        session.pop('id')
+        return redirect('/')
 
 
 

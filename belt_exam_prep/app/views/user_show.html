@@ -1,15 +1,26 @@
-<!DOCTYPE html>
-<html>
-<head>
+{% include "_head.html" %}
+<style type="text/css">
+	.top{
+		margin-top: 20px;
+	}
+</style>
 	<title>Users Reviews</title>
-</head>
-<body>
 
-	<h2>books Alias: {{ books['alias'] }}</h2>
-	<h3>Name: {{ books['name'] }}</h3>
-	<h3>Email: {{ books['email'] }}</h3>
-	<h3>Total Review {{ reviews}}</h3>
-	<h3>Posted Reviews on the following books:</h3>
-	<a href="/books/{{ books['book_id'] }}">{{books.title}}</a>
-</body>
-</html>
+{% include "_nav.html" %}
+	<div class="row">
+	  <h3 class="col-xs-4 col-md-10"></h3>
+	  <div class="col-xs-4 col-md-1 top"><a href="/books">Home</a></div>
+	  <div class="col-xs-4 col-md-1 top"><a href="/logout">Logout</a></div>
+	</div>
+
+	<h2>User Alias: {{ books[0]['alias'] }}</h2>
+	<h4>Name: {{ books[0]['name'] }}</h4>
+	<h4>Email: {{ books[0]['email'] }}</h4>
+	<h4>Total Review: {{ length }}</h4>
+	<h4>Posted Reviews on the following books:</h4>
+
+	{% for i in books %}
+	<li><a href="/books/{{ i['book_id'] }}">{{ i['title'] }}</a></li>
+	{% endfor %}
+
+{% include '_end.html' %}

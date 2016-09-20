@@ -44,10 +44,17 @@ class Book(Model):
         if not book['title']:
             return False
 
+        query = 'SELECT * FROM books WHERE title = :title'
+        data = {'title': book['title']}
+        find_book = self.db.query_db(query, data)
+
         if book['new_author'] == "":
             author = book['author_list']
         else:
             author = book['new_author']
+
+        if find_book:
+            return find_book[0]['id']
 
         query = "INSERT INTO books (title, author, created_at, user_id) VALUES (:title, :author, NOW(), :user_id)"
         data = {'title': book['title'], 'author': author, 'user_id': book['user_id']}
@@ -60,9 +67,8 @@ class Book(Model):
         return self.db.query_db(query, data)
 
     def get_reviews_by_book_id(self, id):
-        query = "SELECT books.user_id, reviews.review, reviews.created_at, users.name, reviews.rating FROM books LEFT JOIN users ON users.id = books.user_id LEFT JOIN reviews ON book.id = reviews.book_id WHERE books.id = :book_id"
+        query = "SELECT books.user_id, reviews.review, reviews.created_at, users.name, reviews.rating FROM books LEFT JOIN reviews ON books.id = reviews.book_id LEFT JOIN users ON users.id = reviews.user_id WHERE books.id = :book_id"
         data = {'book_id': id}
-        print 'amin'
         result = self.db.query_db(query, data)
         return result
 

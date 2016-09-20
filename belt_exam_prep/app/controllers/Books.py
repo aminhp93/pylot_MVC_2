@@ -16,6 +16,7 @@ class Books(Controller):
             Every controller has access to the load_model method.
         """
         self.load_model('Book')
+        self.load_model('Review')
         self.db = self._app.db
 
         """
@@ -56,16 +57,15 @@ class Books(Controller):
             return redirect('/books/add')
 
         review = {'rating': rating, 'review': review, 'book_id': book_id, 'user_id': session['id']}
-        review_id = self. models['Review'].insert_review(review)
+        review_id = self.models['Review'].insert_review(review)
         if review_id == False:
             return redirect('/books/add')
 
-        return redirect('/books/' + str(id))
+        return redirect('/books/' + str(book_id))
 
     def show_one_book(self, id):
-        # book = self.models['Book'].get_book_by_id(id)
+        book = self.models['Book'].get_book_by_id(id)
         reviews = self.models['Book'].get_reviews_by_book_id(id)
-        print reviews
-        return self.load_view('show_one_book.html', reviews = reviews)
+        return self.load_view('show_one_book.html', book = book, reviews = reviews)
 
     

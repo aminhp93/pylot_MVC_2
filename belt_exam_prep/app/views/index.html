@@ -18,30 +18,75 @@
 		    <div class="col-sm-4">
 		      	<input type="text" class="form-control" placeholder="Name" name="name">
 		    </div>
+		    {% with messages = get_flashed_messages(category_filter=['name']) %}
+			  {% if messages %}
+			    <ul class=flashes>
+			    {% for message in messages %}
+			      <li>{{ message }}</li>
+			    {% endfor %}
+			    </ul>
+			  {% endif %}
+			{% endwith %}
 		</div>
 		<div class="form-group">
 		    <label  class="col-sm-2 control-label">Alias</label>
 		    <div class="col-sm-4">
 		      	<input type="text" class="form-control" placeholder="Alias" name="alias">
 		    </div>
+		    {% with messages = get_flashed_messages(category_filter=['alias']) %}
+			  {% if messages %}
+			    <ul class=flashes>
+			    {% for message in messages %}
+			      <li>{{ message }}</li>
+			    {% endfor %}
+			    </ul>
+			  {% endif %}
+			{% endwith %}
 		</div>
 		<div class="form-group">
 		    <label  class="col-sm-2 control-label">Email</label>
 		    <div class="col-sm-4">
 		      <input type="text" class="form-control" placeholder="Email" name="email">
 		    </div>
+		    {% with messages = get_flashed_messages(category_filter=['email']) %}
+			  {% if messages %}
+			    <ul class=flashes>
+			    {% for message in messages %}
+			      <li>{{ message }}</li>
+			    {% endfor %}
+			    </ul>
+			  {% endif %}
+			{% endwith %}
 		</div>
 		<div class="form-group">
 		    <label  class="col-sm-2 control-label">Password</label>
 		    <div class="col-sm-4">
 		      <input type="password" class="form-control" placeholder="Password" name="password">
 		    </div>
+		    {% with messages = get_flashed_messages(category_filter=['password']) %}
+			  {% if messages %}
+			    <ul class=flashes>
+			    {% for message in messages %}
+			      <li>{{ message }}</li>
+			    {% endfor %}
+			    </ul>
+			  {% endif %}
+			{% endwith %}
 		</div>
 		<div class="form-group">
 		    <label  class="col-sm-2 control-label">Password CF</label>
 		    <div class="col-sm-4">
 		      <input type="password" class="form-control" placeholder="Password CF" name="password_confirmation">
 		    </div>
+		    {% with messages = get_flashed_messages(category_filter=['password']) %}
+			  {% if messages %}
+			    <ul class=flashes>
+			    {% for message in messages %}
+			      <li>{{ message }}</li>
+			    {% endfor %}
+			    </ul>
+			  {% endif %}
+			{% endwith %}
 		</div>
 		<div class="form-group">
 		    <div class="col-sm-offset-2 col-sm-10">
@@ -60,19 +105,20 @@
 			<div class="col-sm-4">
 				<input type="email" class="form-control" placeholder="Email" name="email_login">
 			</div>
+			{% with errors = get_flashed_messages(category_filter=["login"]) %}
+				{% if errors %}
+				<div class="alert-message block-message error">
+					<a class="close" href="#">×</a>
+					<ul>
+					{%- for msg in errors %}
+						<li>{{ msg }}</li>
+					{% endfor -%}
+					</ul>
+				</div>
+				{% endif %}
+			{% endwith %}
 		</div>
-		{% with errors = get_flashed_messages(category_filter=["login"]) %}
-			{% if errors %}
-			<div class="alert-message block-message error">
-				<a class="close" href="#">×</a>
-				<ul>
-				{%- for msg in errors %}
-					<li>{{ msg }}</li>
-				{% endfor -%}
-				</ul>
-			</div>
-			{% endif %}
-		{% endwith %}
+		
 	  	<div class="form-group">
 	    	<label  class="col-sm-2 control-label">Password</label>
 	    	<div class="col-sm-4">
