@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Users Reviews</title>
+</head>
+<body>
+
+	<h2>books Alias: {{ books['alias'] }}</h2>
+	<h3>Name: {{ books['name'] }}</h3>
+	<h3>Email: {{ books['email'] }}</h3>
+	<h3>Total Review {{ reviews}}</h3>
+	<h3>Posted Reviews on the following books:</h3>
+	<a href="/books/{{ books['book_id'] }}">{{books.title}}</a>
+</body>
+</html>

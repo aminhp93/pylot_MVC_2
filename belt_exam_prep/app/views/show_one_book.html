@@ -2,6 +2,24 @@
 	<title>Show one Book</title>
 </head>
 <body>
-	
+
+	<h2>{{ book['title'] }}</h2>
+	<h3>Author: {{ book['author'] }}</h3>
+	<h2>Reviews:</h2>
+
+	{% for i in reviews: %}
+		<div><a href="/users/{{ i['user_id'] }}">{{i['name']}}</a>say: {{i['review']}}</div>
+		<div>Posted on {{i['created_at']}}</div>
+	{% endfor %}
+
+	<h3>Add a review:</h3>
+	<input type="text" name="review">
+	<h3>Rating
+	<select>
+		<option>1</option>
+		<option>2</option>
+		<option>3</option>
+	</select>stars.</h3>
+
 </body>
 </html>

@@ -16,6 +16,7 @@ class Users(Controller):
             Every controller has access to the load_model method.
         """
         self.load_model('User')
+        self.load_model('Book')
         self.db = self._app.db
 
         """
@@ -65,8 +66,14 @@ class Users(Controller):
         return redirect('/books')
 
     def show_books(self):
+        all_books = self.models['Book'].get_all_books()
         user = self.models['User'].get_user_by_id(session['id'])
-        return self.load_view('book_show.html', user = user[0])
+        books = self.models['User'].get_book_by_user_id(session['id'])
+        return self.load_view('book_show.html', books = books, user = user[0], all_books = all_books)
+
+    def show_user(self, id):
+        books = self.models['User'].get_book_by_user_id(id)
+        return self.load_view('user_show.html', books = books[0])
 
 
 

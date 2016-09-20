@@ -49,11 +49,24 @@ class Book(Model):
         else:
             author = book['new_author']
 
-        query = "INSERT INTO books ('created_at') VALUES (NOW())"
+        query = "INSERT INTO books (title, author, review, rating, created_at) VALUES (:title, :author, :review, :rating, NOW())"
         data = {'title': book['title'], 'author': author, 'rating': book['rating'], 'review': book['review']}
-        print data
         result = self.db.query_db(query, data)
         return result
+
+    def get_book_by_id(self, id):
+        query = "SELECT * FROM books WHERE id = :id"
+        data = {'id': id}
+        return self.db.query_db(query, data)
+
+    def get_reviews_by_book_id(self, id):
+        query = "SELECT books.user_id, books.review, books.created_at, users.name, books.rating FROM books LEFT JOIN users ON users.id = books.user_id WHERE books.user_id = :user_id"
+        data = {'user_id': id}
+        return self.db.query_db(query, data)
+
+    def get_all_books(self):
+        query = "SELECT * FROM books"
+        return self.db.query_db(query)
 
 
 

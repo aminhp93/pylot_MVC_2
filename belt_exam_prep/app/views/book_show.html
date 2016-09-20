@@ -2,9 +2,23 @@
 	<title>Book Show</title>
 </head>
 <body>
-	<h2>Welcome</h2>
+	<h2>Welcome {{ user['name'] }}</h2>
 	<h3>Recent Book Reviews:</h3>
 	<a href="/books/add">Add Book and Review</a>
 	<a href="">Logout</a>
+
+	{% for i in books %}
+	<ul>
+		<li>Rating: {{ i['rating'] }}</li>
+		<li><a href="/books/add">{{ i['name'] }}</a> say: {{ i['review'] }}</li>
+		<li>Posted on: {{ i['created_at'] }}</li>
+	</ul>
+	{% endfor %}
+
+	{% for i in all_books %}
+	<ul>
+		<li><a href="/books/{{ i['id'] }}">{{ i['title'] }}</a></li>
+	</ul>
+	{% endfor %}
 </body>
 </html>

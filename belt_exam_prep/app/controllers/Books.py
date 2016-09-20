@@ -51,9 +51,11 @@ class Books(Controller):
         book = {'title': title, 'author_list': author_list, 'new_author': new_author, 'review': review, 'rating': rating}
 
         id = self.models['Book'].insert_book(book)
-        return redirect('/books' + id)
+        return redirect('/books/' + str(id))
 
     def show_one_book(self, id):
-        return self.load_view('show_one_book.html')
+        book = self.models['Book'].get_book_by_id(id)
+        reviews = self.models['Book'].get_reviews_by_book_id(id)
+        return self.load_view('show_one_book.html', book = book[0], reviews = reviews)
 
     

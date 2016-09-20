@@ -23,6 +23,7 @@ routes['POST']['/login'] = 'Users#login'
 routes['GET']['/books/add'] = 'Books#add_book'
 routes['POST']['/insert_book/temp'] = 'Books#insert_book'
 routes['GET']['/books/<int:id>'] = 'Books#show_one_book'
+routes['GET']['/users/<int:id>'] = 'Users#show_user'
 """
     You can add routes and specify their handlers as follows:
 

@@ -63,6 +63,11 @@ class User(Model):
         flash('Invalid input', 'login')
         return False
 
+    def get_book_by_user_id(self, id):
+        query = "SELECT books.created_at, books.review, books.id as book_id, users.alias, users.name, users.email, books.title, books.rating FROM users LEFT JOIN books ON users.id = books.user_id WHERE users.id = :id"
+        data = {'id': id}
+        return self.db.query_db(query, data)
+
 
 
 
