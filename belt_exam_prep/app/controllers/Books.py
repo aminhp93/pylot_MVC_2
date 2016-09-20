@@ -8,14 +8,14 @@
 """
 from system.core.controller import *
 
-class Surveys(Controller):
+class Books(Controller):
     def __init__(self, action):
-        super(Surveys, self).__init__(action)
+        super(Books, self).__init__(action)
         """
             This is an example of loading a model.
             Every controller has access to the load_model method.
         """
-        self.load_model('WelcomeModel')
+        self.load_model('Book')
         self.db = self._app.db
 
         """
@@ -24,7 +24,7 @@ class Surveys(Controller):
 
         """
    
-    def index(self):
+    def add_book(self):
         """
         A loaded model is accessible through the models attribute 
         self.models['WelcomeModel'].get_users()
@@ -36,22 +36,24 @@ class Surveys(Controller):
         
         # return self.load_view('index.html', messages=messages, user=user)
         """
+       
+        return self.load_view('add_book.html')
 
+    def insert_book(self):
+        post = request.form
 
-        return self.load_view('index.html')
+        title = post['title']
+        author_list = post['author_list']
+        new_author = post['new_author']
+        review = post['review']
+        rating = post['rating']
 
-    def create(self):
-        if 'num' not in session:
-            session['num'] = 0
-        session['num'] += 1
+        book = {'title': title, 'author_list': author_list, 'new_author': new_author, 'review': review, 'rating': rating}
 
-        flash('Thanks for submitting this form. You have submitted this form' + str(session['num']) + 'times.')
-        # print get_flashed_messages()
+        id = self.models['Book'].insert_book(book)
+        return redirect('/books' + id)
 
-        name = request.form['name']
-        location = request.form['location']
-        language = request.form['language']
-        comment = request.form['comment']
+    def show_one_book(self, id):
+        return self.load_view('show_one_book.html')
 
-        return self.load_view('result.html', name = name, location = location, language = language, comment = comment)
-
+    
