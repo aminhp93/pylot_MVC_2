@@ -10,9 +10,9 @@
 from system.core.model import Model
 from flask import flash
 
-class Book(Model):
+class Review(Model):
     def __init__(self):
-        super(Book, self).__init__()
+        super(Review, self).__init__()
     """
     Below is an example of a model method that queries the database for all users in a fictitious application
     
@@ -40,35 +40,14 @@ class Book(Model):
 
     """
 
-    def insert_book(self, book):
-        if not book['title']:
+    def insert_reviews(self, review):
+        if not review['review']:
             return False
 
-        if book['new_author'] == "":
-            author = book['author_list']
-        else:
-            author = book['new_author']
-
-        query = "INSERT INTO books (title, author, created_at, user_id) VALUES (:title, :author, NOW(), :user_id)"
-        data = {'title': book['title'], 'author': author, 'user_id': book['user_id']}
-        book_id = self.db.query_db(query, data)
-        return book_id
-
-    def get_book_by_id(self, id):
-        query = "SELECT * FROM books WHERE id = :id"
-        data = {'id': id}
-        return self.db.query_db(query, data)
-
-    def get_reviews_by_book_id(self, id):
-        query = "SELECT books.user_id, reviews.review, reviews.created_at, users.name, reviews.rating FROM books LEFT JOIN users ON users.id = books.user_id LEFT JOIN reviews ON book.id = reviews.book_id WHERE books.id = :book_id"
-        data = {'book_id': id}
-        print 'amin'
-        result = self.db.query_db(query, data)
-        return result
-
-    def get_all_books(self):
-        query = "SELECT * FROM books"
-        return self.db.query_db(query)
+        query = 'INSERT Into reviews(review, user_id, book_id, created_at) VALUES (:review, :user_id, :book_id, NOW())'
+        data = {'review': review['review'], 'user_id': review['user_id'], 'book_id': review['book_id']}
+        review_id = self.db.query_db(query, data)
+        return review_id
 
 
 

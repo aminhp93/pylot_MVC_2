@@ -8,14 +8,14 @@
 """
 from system.core.controller import *
 
-class Books(Controller):
+class Reviews(Controller):
     def __init__(self, action):
-        super(Books, self).__init__(action)
+        super(Reviews, self).__init__(action)
         """
             This is an example of loading a model.
             Every controller has access to the load_model method.
         """
-        self.load_model('Book')
+        self.load_model('Review')
         self.db = self._app.db
 
         """
@@ -38,34 +38,5 @@ class Books(Controller):
         """
        
         return self.load_view('add_book.html')
-
-    def insert_book(self):
-        post = request.form
-
-        title = post['title']
-        author_list = post['author_list']
-        new_author = post['new_author']
-        review = post['review']
-        rating = post['rating']
-        user_id = session['id']
-
-        book = {'title': title, 'author_list': author_list, 'new_author': new_author, 'user_id': user_id}
-
-        book_id = self.models['Book'].insert_book(book)
-        if book_id == False:
-            return redirect('/books/add')
-
-        review = {'rating': rating, 'review': review, 'book_id': book_id, 'user_id': session['id']}
-        review_id = self. models['Review'].insert_review(review)
-        if review_id == False:
-            return redirect('/books/add')
-
-        return redirect('/books/' + str(id))
-
-    def show_one_book(self, id):
-        # book = self.models['Book'].get_book_by_id(id)
-        reviews = self.models['Book'].get_reviews_by_book_id(id)
-        print reviews
-        return self.load_view('show_one_book.html', reviews = reviews)
 
     

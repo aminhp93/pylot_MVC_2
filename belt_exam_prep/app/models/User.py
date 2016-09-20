@@ -45,6 +45,7 @@ class User(Model):
         return self.db.query_db(query, data)
 
     def add_user(self, user):
+        
         query = "INSERT into users (name, alias, email, password, created_at) values(:name, :alias, :email, :password, NOW())"
         data = {'name': user['name'], 'alias': user['alias'], 'email': user['email'], 'password': user['password']}
         return self.db.query_db(query, data)
@@ -64,7 +65,7 @@ class User(Model):
         return False
 
     def get_book_by_user_id(self, id):
-        query = "SELECT books.created_at, books.review, books.id as book_id, users.alias, users.name, users.email, books.title, books.rating FROM users LEFT JOIN books ON users.id = books.user_id WHERE users.id = :id"
+        query = "SELECT books.created_at, books.id as book_id, users.alias, users.name, users.email, books.title FROM users LEFT JOIN books ON users.id = books.user_id WHERE users.id = :id"
         data = {'id': id}
         return self.db.query_db(query, data)
 
