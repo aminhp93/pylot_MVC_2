@@ -11,6 +11,7 @@
 			<th>email</th>
 			<th>created_at</th>
 			<th>user_level</th>
+			<th></th>
 		</tr>
 		{% for i in users %}
 		<tr>
@@ -19,6 +20,15 @@
       		<td>{{ i['email'] }}</td>
 			<td>{{ i['created_at'] }}</td>
 			<td>{{ i['level'] }}</td>
+			<td>
+				{% if i['status'] == 'pending' %}
+					<div>Friend Request Sent</div>
+				{% else %}
+					<form action="/add_friend/{{ i['id'] }}" method="post">
+						<input type="submit" value="Add Friend">
+					</form>
+				{% endif %}
+			</td>
 		</tr>
 		{% endfor %}
 	</table>

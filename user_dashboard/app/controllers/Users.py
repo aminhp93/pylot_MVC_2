@@ -7,6 +7,7 @@
     Create a controller using this template
 """
 from system.core.controller import *
+from time import strftime
 
 class Users(Controller):
     def __init__(self, action):
@@ -18,6 +19,7 @@ class Users(Controller):
         self.load_model('User')
         self.load_model('Message')
         self.load_model('Comment')
+        self.load_model("Request")
         self.db = self._app.db
 
         """
@@ -149,7 +151,7 @@ class Users(Controller):
     def user_show(self):
         if not 'id' in session or session['id'] == "":
             return redirect('/')
-        users = self.models['User'].get_all_users()
+        users = self.models['Request'].get_all_users_with_status()
         return self.load_view('users/user_show.html', users = users)
 
     def user_edit(self):
@@ -189,18 +191,23 @@ class Users(Controller):
         result = self.models['User'].user_update_3(user)
         return redirect('/dashboard')
 
+    def profile(self, id):
+        user = self.models['User'].get_user_by_id(id)
+        return self.load_view('users/profile.html', user = user[0])
+
 # ======================================================================================
 #         # BOTH 
 # ======================================================================================
-
+    
     def show(self, id):
+        time = strftime("%d %b %Y %H:%M:%S")
         user = self.models['User'].get_user_by_id(id)
 
         messages = self.models['Message'].get_all_messages()
 
         comments = self.models['Comment'].get_all_comments()
 
-        return self.load_view('users/test_app.html', user = user[0], messages = messages, comments = comments)
+        return self.load_view('users/test_app.html', user = user[0], messages = messages, comments = comments, time = time )
 
     def logout(self):
         session.pop('id')

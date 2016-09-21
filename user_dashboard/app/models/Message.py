@@ -19,7 +19,7 @@ class Message(Model):
         return self.db.query_db(query, data)
 
     def get_all_messages(self):
-        query = "SELECT * FROM messages ORDER BY created_at DESC"
+        query = "SELECT messages.message, messages.created_at, messages.id, users.first_name, messages.user_id FROM messages LEFT JOIN users ON users.id = messages.user_id ORDER BY created_at DESC"
         return self.db.query_db(query)
 
 

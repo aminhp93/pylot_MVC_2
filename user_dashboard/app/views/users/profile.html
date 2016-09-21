@@ -1,0 +1,36 @@
+{% include "/users/_head.html"%}
+	<title>Profile</title>
+</head>
+<body>
+	{% if user['level'] == 'admin' %}
+		{% include "/users/_admin_show.html" %}
+	{% else %}
+		{% include "/users/_user_show.html" %}
+	{% endif %}
+
+	<div class="row">
+		<div class="col-xs-3 col-md-2"></div>
+		<h2 class="col-xs-5 col-md-8">Nice to see you {{user['first_name']}}</h2>
+	</div>
+	<div class="row">
+		<div class="col-xs-3 col-md-2"></div>
+		<div class="col-xs-3 col-md-2">Registered at:</div>
+		<div class="col-xs-5 col-md-4">{{user['created_at']}}</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-3 col-md-2"></div>
+		<div class="col-xs-3 col-md-2">User Id:</div>
+		<div class="col-xs-5 col-md-4">{{user['id']}}</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-3 col-md-2"></div>
+		<div class="col-xs-3 col-md-2">Email:</div>
+		<div class="col-xs-5 col-md-4">{{user['email']}}</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-3 col-md-2"></div>
+		<div class="col-xs-3 col-md-2">Description:</div>
+		<div class="col-xs-5 col-md-4">{{user['description']}}</div>
+	</div>	
+</body>
+</html>

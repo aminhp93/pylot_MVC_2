@@ -31,18 +31,19 @@ routes['POST']['/users/delete/<int:id>'] = 'Users#delete'
 routes['GET']['/register'] = 'Users#register'
 routes['POST']['/users/add'] = 'Users#add'
 routes['GET']['/dashboard'] = 'Users#user_show'
+routes['GET']['/users/profile/<int:id>'] = 'Users#profile'
 routes['GET']['/users/edit'] = 'Users#user_edit'
 routes['POST']['/users/update1'] = "Users#user_update_1"
 routes['POST']['/users/update2'] = "Users#user_update_2"
 routes['POST']['/users/update3'] = "Users#user_update_3"
 
 routes['POST']['/login'] = 'Users#login'
-
 routes['GET']['/users/show/<int:id>'] = 'Users#show'
-
 routes['POST']['/messages/add/<int:id>'] = 'Messages#add'
-
 routes['POST']['/comments/add/<int:id>'] = 'Comments#add'
+
+routes['POST']['/add_friend/<int:id>'] = 'Requests#add_friend'
+
 
 routes['GET']['/logout'] = 'Users#logout'
 
