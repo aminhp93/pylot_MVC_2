@@ -54,11 +54,13 @@ class Books(Controller):
 
         book_id = self.models['Book'].insert_book(book)
         if book_id == False:
+            flash('Title can not be blank', 'title')
             return redirect('/books/add')
 
         review = {'rating': rating, 'review': review, 'book_id': book_id, 'user_id': session['id']}
         review_id = self.models['Review'].insert_review(review)
         if review_id == False:
+            flash('Review can not be blank', 'review')
             return redirect('/books/add')
 
         return redirect('/books/' + str(book_id))

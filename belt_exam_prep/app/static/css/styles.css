@@ -1,3 +1,17 @@
 * {
   font-family: monaco;
 }
+.flashes{
+	list-style: none;
+	background-color: black;
+	display: inline-block;
+	padding: 5px;
+	color: white;
+}
+.button{
+	background-color: #222;
+	color: white;
+	padding: 5px 10px;
+	/*border-radius: 10px;*/
+	border: none;
+}
