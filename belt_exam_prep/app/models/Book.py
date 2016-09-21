@@ -67,7 +67,7 @@ class Book(Model):
         return self.db.query_db(query, data)
 
     def get_reviews_by_book_id(self, id):
-        query = "SELECT books.user_id, reviews.review, reviews.created_at, users.name, reviews.rating FROM books LEFT JOIN reviews ON books.id = reviews.book_id LEFT JOIN users ON users.id = reviews.user_id WHERE books.id = :book_id"
+        query = "SELECT reviews.user_id, reviews.review, reviews.created_at, users.name, reviews.rating FROM books LEFT JOIN reviews ON books.id = reviews.book_id LEFT JOIN users ON users.id = reviews.user_id WHERE books.id = :book_id"
         data = {'book_id': id}
         result = self.db.query_db(query, data)
         return result
