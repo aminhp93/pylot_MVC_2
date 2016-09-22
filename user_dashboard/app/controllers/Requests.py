@@ -28,6 +28,16 @@ class Requests(Controller):
         request = {'user_id': session['id'], 'friend_id': id}
         self.models['Request'].add_friend(request)
         return redirect('/dashboard')
+
+    def confirm_friend(self, id):
+        confirm = {'friend_id': session['id'], 'user_id': id}
+        self.models['Request'].confirm_friend(confirm)
+        return redirect('/dashboard')
+
+    def delete_friend(self, id):
+        confirm = {'friend_id': session['id'], 'user_id': id}
+        self.models['Request'].delete_friend(confirm)
+        return redirect('/dashboard')
    
 
 
