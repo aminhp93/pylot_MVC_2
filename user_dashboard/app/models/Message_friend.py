@@ -14,12 +14,12 @@ class Message_friend(Model):
         super(Message_friend, self).__init__()
 
     def insert_message_friend(self, message):
-        query = "INSERT INTO friend_message(message, user_id, friend_id, created_at) VALUES (:message, :user_id, :friend_id, NOW())"
+        query = "INSERT INTO message_friend(message, user_id, friend_id, created_at) VALUES (:message, :user_id, :friend_id, NOW())"
         data = {'message': message['message'], 'user_id': message['user_id'], 'friend_id': message['friend_id']}
         return self.db.query_db(query, data)
 
-    def get_all_messages(self, info):
-        query = "SELECT * FROM friend_message WHERE user_id = :user_id, message_id = :message_id"
-        data = {'user_id': info['user_id'], 'message_id': info['message_id']}
-        return self.db.query_db(query)
+    def get_message_friend(self, info):
+        query = "SELECT message_friend.message, users.first_name FROM message_friend LEFT JOIN users ON message_friend.user_id = users.id WHERE (user_id = :user_id and friend_id = :friend_id) OR (user_id = :friend_id and friend_id = :user_id) ORDER BY message_friend.created_at DESC"
+        data = {'user_id': info['user_id'], 'friend_id': info['friend_id']}
+        return self.db.query_db(query, data)
 

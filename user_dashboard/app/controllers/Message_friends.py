@@ -24,13 +24,15 @@ class Message_friends(Controller):
 
         """
 
-    def message_friend(self, id):
+    def message_friend(self, friend_id):
+        info = {'user_id': session['id'], 'friend_id': friend_id}
+        messages = self.models['Message_friend'].get_message_friend(info)
 
-        return self.load_view('/users/message_friend.html')
+        return self.load_view('/users/message_friend.html', friend_id = friend_id, messages = messages)
 
     def insert_message_friend(self, id):
-        message = {'message': request.form['message'] }
-        id = self.models['Message'].insert_message_friend(message)
+        message = {'message': request.form['message'], 'user_id': session['id'], 'friend_id': id}
+        self.models['Message_friend'].insert_message_friend(message)
         return redirect('/message_friend/' + str(id))
 
         

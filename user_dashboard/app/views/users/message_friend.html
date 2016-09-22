@@ -4,13 +4,13 @@
 	<title>Message Friend</title>
 </head>
 <body>
-	<form action="/insert_message_friend/{{id}}" method="post">
+	<form action="/insert_message_friend/{{friend_id}}" method="post">
 		<input type="text" name="message">
 		<input type="submit" value="Post">
 	</form>
 	<div>
 		{% for i in messages %}
-			<div>{{ i }}</div>
+			<div>{{i['first_name']}} say: {{ i['message'] }}</div>
 		{% endfor %}
 	</div>
 </body>
