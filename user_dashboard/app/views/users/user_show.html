@@ -7,11 +7,11 @@
 	<table class="table table-hover">
 		<tr>
 			<th>ID:</th>
-			<th>Name^</th>
+			<th>Name</th>
 			<th>email</th>
 			<th>created_at</th>
 			<th>user_level</th>
-			<th></th>
+			<th>Status</th>
 		</tr>
 		{% for i in users %}
 		<tr>
@@ -21,13 +21,16 @@
 			<td>{{ i['created_at'] }}</td>
 			<td>{{ i['level'] }}</td>
 			<td>
-				{% if i['status'] == 'pending' %}
-					<div>Friend Request Sent</div>
+				{% if i['user_id'] == session['id'] %}
+					<div>Request Sent</div>
+				{% elif i['friend_id'] == session['id'] %}
+					<div>Accept/Delete</div>
 				{% else %}
 					<form action="/add_friend/{{ i['id'] }}" method="post">
 						<input type="submit" value="Add Friend">
 					</form>
 				{% endif %}
+		
 			</td>
 		</tr>
 		{% endfor %}

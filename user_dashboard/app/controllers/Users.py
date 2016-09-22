@@ -151,7 +151,7 @@ class Users(Controller):
     def user_show(self):
         if not 'id' in session or session['id'] == "":
             return redirect('/')
-        users = self.models['Request'].get_all_users_with_status()
+        users = self.models['Request'].get_all_users_with_status(session['id'])
         return self.load_view('users/user_show.html', users = users)
 
     def user_edit(self):
