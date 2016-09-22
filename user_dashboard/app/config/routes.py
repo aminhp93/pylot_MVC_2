@@ -46,6 +46,9 @@ routes['POST']['/add_friend/<int:id>'] = 'Requests#add_friend'
 routes['POST']['/confirm_friend/<int:id>'] = 'Requests#confirm_friend'
 routes['POST']['/delete_friend/<int:id>'] = 'Requests#delete_friend'
 
+routes['GET']['/message_friend/<int:id>'] = 'Message_friends#message_friend'
+routes['POST']['/insert_message_friend/<int:id>'] = "Message_friends#insert_message_friend"
+
 routes['GET']['/logout'] = 'Users#logout'
 
 

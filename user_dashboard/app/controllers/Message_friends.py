@@ -8,14 +8,14 @@
 """
 from system.core.controller import *
 
-class Messages(Controller):
+class Message_friends(Controller):
     def __init__(self, action):
-        super(Messages, self).__init__(action)
+        super(Message_friends, self).__init__(action)
         """
             This is an example of loading a model.
             Every controller has access to the load_model method.
         """
-        self.load_model('Message')
+        self.load_model('Message_friend')
         self.db = self._app.db
 
         """
@@ -23,12 +23,18 @@ class Messages(Controller):
         This is an example of a controller method that will load a view for the client 
 
         """
-   
-    def index(self):        
-        return self.load_view('users/index.html')
 
-    def add(self, id):
-        message = request.form['message']
-        message = {'message': message, 'user_id': str(id)}
-        self.models['Message'].add_message(message)
-        return redirect('/users/show/' + str(id))
+    def message_friend(self, id):
+
+        return self.load_view('/users/message_friend.html')
+
+    def insert_message_friend(self, id):
+        message = {'message': request.form['message'] }
+        id = self.models['Message'].insert_message_friend(message)
+        return redirect('/message_friend/' + str(id))
+
+        
+
+
+
+

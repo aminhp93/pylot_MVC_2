@@ -13,10 +13,11 @@
 		<tr>
 			<th>ID:</th>
 			<th>Name</th>
-			<th>email</th>
-			<th>created_at</th>
-			<th>user_level</th>
+			<th>Email</th>
+			<th>Created_at</th>
+			<th>User_level</th>
 			<th>Status</th>
+			<th>Action</th>
 		</tr>
 		{% for i in users %}
 		<tr>
@@ -46,6 +47,11 @@
 						<input type="submit" value="Add Friend">
 					</form>
 				{% endif %}
+			</td>
+			<td>
+				<form action="/message_friend/{{ i['id'] }}">
+					<input type="submit" value="Send message">
+				</form>
 			</td>
 		</tr>
 		{% endfor %}
