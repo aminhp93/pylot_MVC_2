@@ -1,17 +1,47 @@
-<!DOCTYPE html>
-<html>
-<head>
+{% include "users/_head.html" %}
 	<title>Message Friend</title>
+	<style type="text/css">
+		#container{
+			margin-top: 40px;
+			height: 400px;
+		}
+		.right{
+			text-align: right;
+		}
+	</style>
 </head>
 <body>
-	<form action="/insert_message_friend/{{friend_id}}" method="post">
-		<input type="text" name="message">
-		<input type="submit" value="Post">
-	</form>
-	<div>
+{% include "/users/_user_show.html" %}
+	<div id="container">
 		{% for i in messages %}
-			<div>{{i['first_name']}} say: {{ i['message'] }}</div>
+	
+			{% if i['user_id'] == session['id'] %}
+			<div class="row">
+				<div class="col-xs-6 col-md-2 right">{{i['first_name']}}</div>
+				<div class="col-xs-6 col-md-4"> {{ i['message'] }}</div>
+			</div>			
+			{% else %}
+			<div class="row">
+				<div class="col-xs-6 col-md-2"></div>
+				<div class="col-xs-6 col-md-4 right">{{ i['message'] }}</div>
+				<div class="col-xs-6 col-md-6">{{i['first_name']}}</div>
+			</div>
+			{% endif %}
 		{% endfor %}
 	</div>
+		<form action="/insert_message_friend/{{friend_id}}" method="post">
+			<div class="row">
+				<div class="col-xs-6 col-md-4"></div>			
+				<div class="col-xs-6 col-md-2">
+					<input type="text" class="form-control" name="message" placeholder="type message">
+				</div>
+			</div>
+			<div>
+				<div class="col-xs-6 col-md-5"></div>
+				<div class="col-xs-6 col-md-1">
+				 	<button type="submit" class="form-control btn btn-default">Post</button>
+				</div>
+			</div>
+		</form>
 </body>
 </html>

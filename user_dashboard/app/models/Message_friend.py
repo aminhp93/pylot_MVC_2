@@ -19,7 +19,7 @@ class Message_friend(Model):
         return self.db.query_db(query, data)
 
     def get_message_friend(self, info):
-        query = "SELECT message_friend.message, users.first_name FROM message_friend LEFT JOIN users ON message_friend.user_id = users.id WHERE (user_id = :user_id and friend_id = :friend_id) OR (user_id = :friend_id and friend_id = :user_id) ORDER BY message_friend.created_at DESC"
+        query = "SELECT message_friend.message, users.first_name, message_friend.user_id FROM message_friend LEFT JOIN users ON message_friend.user_id = users.id WHERE (user_id = :user_id and friend_id = :friend_id) OR (user_id = :friend_id and friend_id = :user_id) ORDER BY message_friend.created_at"
         data = {'user_id': info['user_id'], 'friend_id': info['friend_id']}
         return self.db.query_db(query, data)
 
