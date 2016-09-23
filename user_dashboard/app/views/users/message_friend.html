@@ -8,37 +8,56 @@
 		.right{
 			text-align: right;
 		}
+		.middle{
+			width: 400px;
+		}
 	</style>
 </head>
 <body>
 {% include "/users/_user_show.html" %}
 	<div id="container">
-		{% for i in messages %}
-	
+		<table class="table">
+		{% for i in messages %}		
 			{% if i['user_id'] == session['id'] %}
-			<div class="row">
-				<div class="col-xs-6 col-md-2 right">{{i['first_name']}}</div>
-				<div class="col-xs-6 col-md-4"> {{ i['message'] }}</div>
-			</div>			
+			<tr>
+				<td class="right">{{i['first_name']}}</td>
+				<td class="middle"> {{ i['message'] }}</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>			
 			{% else %}
-			<div class="row">
-				<div class="col-xs-6 col-md-2"></div>
-				<div class="col-xs-6 col-md-4 right">{{ i['message'] }}</div>
-				<div class="col-xs-6 col-md-6">{{i['first_name']}}</div>
-			</div>
+			<tr>
+				<td></td>
+				<td class="right middle">{{ i['message'] }}</td>
+				<td>{{i['first_name']}}</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
 			{% endif %}
 		{% endfor %}
+		</table>
 	</div>
 		<form action="/insert_message_friend/{{friend_id}}" method="post">
 			<div class="row">
 				<div class="col-xs-6 col-md-4"></div>			
-				<div class="col-xs-6 col-md-2">
+				<div class="col-xs-6 col-md-3">
 					<input type="text" class="form-control" name="message" placeholder="type message">
 				</div>
 			</div>
 			<div>
 				<div class="col-xs-6 col-md-5"></div>
-				<div class="col-xs-6 col-md-1">
+				<div class="col-xs-6 col-md-2">
 				 	<button type="submit" class="form-control btn btn-default">Post</button>
 				</div>
 			</div>
